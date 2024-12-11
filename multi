@@ -1,0 +1,38 @@
+from multiprocessing import Process
+import threading
+import time
+
+
+def kare_hesapla(sayi):
+    print(f"Hesaplanıyor (Thread/Process ID: {threading.get_ident()}): {sayi} -> {sayi**2}")
+    time.sleep(1)
+
+
+def coklu_programlama():
+    sayilar = [1, 2, 3, 4, 5]
+    print("Çoklu Programlama Başladı (Thread)...\n")
+    threads = []
+    for sayi in sayilar:
+        t = threading.Thread(target=kare_hesapla, args=(sayi,))
+        threads.append(t)
+        t.start()
+    for t in threads:
+        t.join()
+    print("\nÇoklu Programlama Tamamlandı!")
+
+
+def coklu_islemci():
+    sayilar = [1, 2, 3, 4, 5]
+    print("\nÇoklu İşlemci Başladı (Process)...\n")
+    processes = []
+    for sayi in sayilar:
+        p = Process(target=kare_hesapla, args=(sayi,))
+        processes.append(p)
+        p.start()
+    for p in processes:
+        p.join()
+    print("\nÇoklu İşlemci Tamamlandı!")
+
+if __name__ == "__main__":
+    coklu_programlama()
+    coklu_islemci()

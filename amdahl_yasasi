@@ -1,0 +1,25 @@
+def amdahl_yasasi(paralel_oran, islemci_sayisi):
+   
+    if paralel_oran < 0 or paralel_oran > 1:
+        raise ValueError("Paralel oranı (P) 0 ile 1 arasında olmalıdır.")
+    if islemci_sayisi <= 0:
+        raise ValueError("İşlemci sayısı (N) pozitif bir değer olmalıdır.")
+    
+    hizlanma = 1 / ((1 - paralel_oran) + (paralel_oran / islemci_sayisi))
+    return hizlanma
+
+def main():
+    print("Amdahl Yasası ile Hızlanma Hesaplama")
+    try:
+        paralel_oran = float(input("Paralel çalışabilen kısmın oranını girin (0 ile 1 arasında): "))
+        islemci_sayisi = int(input("İşlemci sayısını girin: "))
+        
+        hizlanma = amdahl_yasasi(paralel_oran, islemci_sayisi)
+        print(f"\nParalel oran: {paralel_oran}")
+        print(f"İşlemci sayısı: {islemci_sayisi}")
+        print(f"Toplam hızlanma: {hizlanma:.2f}")
+    except ValueError as e:
+        print(f"Hata: {e}")
+
+if __name__ == "__main__":
+    main()
